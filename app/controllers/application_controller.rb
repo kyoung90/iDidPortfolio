@@ -7,6 +7,7 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
     enable :sessions
     set :session_secret, ENV.fetch('SESSION_SECRET') 
+    register Sinatra::Flash
   end
 
   get "/" do
@@ -14,6 +15,3 @@ class ApplicationController < Sinatra::Base
   end
 
 end
-
-project_id int FK >- Project.id
-user_id int FK >- User.id
