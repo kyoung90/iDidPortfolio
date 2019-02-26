@@ -14,14 +14,6 @@ class ApplicationController < Sinatra::Base
   end
 
 end
-user_id int fK >- User.id
-title string
-description string
-date_created datetime
-download_link string
-view_count int
-image_link0 string
-image_link1 string
-image_link2 string
-image_link3 string
-image_link4 string
+
+project_id int FK >- Project.id
+user_id int FK >- User.id
