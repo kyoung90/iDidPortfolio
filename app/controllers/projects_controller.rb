@@ -39,6 +39,7 @@ class ProjectsController < ApplicationController
         if params[:imageLink4] != ""
           project.image_link4 = params[:imageLink4]
         end
+        project.view_count = 0
         project.save
         redirect "/projects"
       else 
@@ -54,6 +55,8 @@ class ProjectsController < ApplicationController
     if user
         @project = Project.find_by_slug_and_user_id(params[:project_title_slug], user.id)
         if @project 
+          @project.view_count += 1
+          @project.save
           erb :"/projects/show.html"
         else 
           redirect "/projects"
