@@ -47,14 +47,14 @@ class UsersController < ApplicationController
           flash.now[:message] = "Successfully signed up."
           session[:user_id] = user.id
         end 
-          redirect "/welcome"
+          redirect "/projects"
       else
         flash.now[:message] = "Incorrect parameters"
         redirect "/signup"
       end
     else 
       flash.now[:message] = "Can't signup if you already signed in."
-      redirect "/welcome"
+      redirect "/projects"
     end
   end 
 

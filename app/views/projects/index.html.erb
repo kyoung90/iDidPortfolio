@@ -1,1 +1,14 @@
-<h1>This is the Model's index page.</h1>
+<div class="container">
+    <div class="card-deck">
+        <%@projects.each do |project|%>
+        <div class="card mb-3">
+        <a href="/projects/<%=project.user.slug%>/<%=project.slug%>"><img class="card-img-top" src="<%=project.image_link0%>" alt="Image goes here"></a>
+        <div class="card-body">
+            <h5 class="card-title"><%=project.title%></h5>
+            <p class="card-text"><%=project.description%></p>
+            <p class="card-text">by: <a href="/users/<%=project.user.slug%>"><%=project.user.username%></a></p>
+        </div>
+        </div>
+        <%end%>
+    </div>
+</div>

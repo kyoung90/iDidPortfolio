@@ -11,7 +11,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    # flash.now[:danger] = "I'm in danger."
+    flash.now[:danger] = "I'm in danger."
     erb :welcome
   end
 
