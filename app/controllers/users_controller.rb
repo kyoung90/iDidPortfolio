@@ -88,7 +88,7 @@ class UsersController < ApplicationController
         project.delete
       end 
       @user.delete
-      redirect "/signup"
+      redirect "/logout"
     else 
       redirect "/projects"
     end 
