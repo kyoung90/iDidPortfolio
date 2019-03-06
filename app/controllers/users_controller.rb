@@ -58,12 +58,45 @@ class UsersController < ApplicationController
     end
   end 
 
+  get "/users/:slug/edit" do 
+    @user = User.find_by_slug(params[:slug])
+    if @user && current_user == @user
+      erb :"users/edit.html"
+    else 
+      redirect "/projects"
+    end 
+  end
+
+  patch "/users/:slug" do
+    @user = User.find_by_slug(params[:slug])
+    if @user && current_user == @user
+      @user.username = params[:username]
+      @user.email = params[:email]
+      @user.profile_pic_link = params[:profilePicLink]
+      @user.short_bio = params[:shortBio]
+      @user.save
+      redirect "/users/#{params[:slug]}"
+    else
+      redirect "/projects"
+    end 
+  end 
+
+  delete  "/users/:slug" do 
+    @user = User.find_by_slug(params[:slug])
+    if @user && @user == current_user 
+      @user.delete
+      redirect "/signup"
+    else 
+      redirect "/projects"
+    end 
+  end
+
   get "/users/:slug" do 
     @user = User.find_by_slug(params[:slug])
     if @user 
       erb :"users/show.html"
     else 
-      redirect "/welcome"
+      redirect "/projects"
     end 
   end
 

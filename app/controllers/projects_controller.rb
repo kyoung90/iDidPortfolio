@@ -49,7 +49,6 @@ class ProjectsController < ApplicationController
     end 
   end
 
-  # GET: /projects/5
   get "/projects/:user/:project_title_slug" do
     user = User.find_by_slug(params[:user])
     if user
@@ -62,8 +61,7 @@ class ProjectsController < ApplicationController
     end 
   end
 
-  # GET: /projects/5/edit
-  get "/projects/:id/edit" do
+  get "/projects/:user/edit" do
     erb :"/projects/edit.html"
   end
 
