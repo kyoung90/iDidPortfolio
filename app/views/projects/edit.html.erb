@@ -1,1 +1,53 @@
-<h1>Insert the form to edit an instance of your model here.</h1>
+<div class="container">
+
+    <h4>Edit Project</h4>
+
+    <form action="/projects/<%=@user.slug%>/<%=@project.slug%>" method="post">
+        <input type="hidden" name="_method" value="patch">
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" name="title" id="title" placeholder="Title" value="<%=@project.title%>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label> <span class="text-muted">(Optional)</span>
+            <textarea class="form-control" name="description" id="description" rows="3" value="<%=@project.description%>"></textarea>
+            <small class="text-muted">Please describe your project!</small>
+        </div>
+
+        <div class="form-group">
+            <label for="downloadLink">Download Link</label> <span class="text-muted">(Optional)</span>
+            <input type="text" class="form-control" name="downloadLink" id="downloadLink" placeholder="Download Link" value="<%=@project.download_link%>">
+            <small class="text-muted">Provide a link to onedrive/dropbox/etc to download all relevant files to your project</small>
+        </div>
+
+        <div class="form-group">
+            <label for="imageLink0">Image Link</label> 
+            <input type="text" class="form-control" name="imageLink0" id="imageLink0" placeholder="Image Link" value="<%=@project.image_link0%>" required>
+            <small class="text-muted">Provide a link to an image of your project</small>
+        </div>
+
+        <div class="form-group">
+            <label for="imageLink1">Image Link 2</label> <span class="text-muted">(Optional)</span>
+            <input type="text" class="form-control" name="imageLink1" id="imageLink1" placeholder="Image Link" value="<%=@project.image_link1%>">
+        </div>
+
+        <div class="form-group">
+            <label for="imageLink2">Image Link 3</label> <span class="text-muted">(Optional)</span>
+            <input type="text" class="form-control" name="imageLink2" id="imageLink2" placeholder="Image Link" value="<%=@project.image_link2%>">
+        </div>
+
+        <div class="form-group">
+            <label for="imageLink3">Image Link 4</label> <span class="text-muted">(Optional)</span>
+            <input type="text" class="form-control" name="imageLink3" id="imageLink3" placeholder="Image Link" value="<%=@project.image_link3%>">
+        </div>
+
+        <div class="form-group">
+            <label for="imageLink4">Image Link 5</label> <span class="text-muted">(Optional)</span>
+            <input type="text" class="form-control" name="imageLink4" id="imageLink4" placeholder="Image Link" value="<%=@project.image_link4%>">
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-primary btn-block mb-3">Edit</button>
+    </form>
+</div>

@@ -10,3 +10,12 @@
         </div>
     </div>
 </div>
+
+<% if current_user == @project.user%>
+<a href="/projects/<%=@project.user.slug%>/<%=@project.slug%>/edit" class="btn btn-info">Edit</a>
+
+<form action="/projects/<%=@project.user.slug%>/<%=@project.slug%>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input class="btn btn-danger" type="submit" name="Delete" value="Delete">
+</form>
+<%end%>

@@ -49,8 +49,8 @@ class ProjectsController < ApplicationController
     end 
   end
 
-  get "/projects/:user/:project_title_slug" do
-    user = User.find_by_slug(params[:user])
+  get "/projects/:slug/:project_title_slug" do
+    user = User.find_by_slug(params[:slug])
     if user
         @project = Project.find_by_slug_and_user_id(params[:project_title_slug], user.id)
         if @project 
@@ -61,17 +61,53 @@ class ProjectsController < ApplicationController
     end 
   end
 
-  get "/projects/:user/edit" do
-    erb :"/projects/edit.html"
+  get "/projects/:slug/:project_title_slug/edit" do
+    @user = User.find_by_slug(params[:slug])
+    if @user
+        @project = Project.find_by_slug_and_user_id(params[:project_title_slug], @user.id)
+        if @project 
+          erb :"/projects/edit.html"
+        else 
+          redirect "/users/#{@user.slug}"
+        end 
+    else
+      redirect "/projects"
+    end
   end
 
-  # PATCH: /projects/5
-  patch "/projects/:id" do
-    redirect "/projects/:id"
+  patch "/projects/:slug/:project_title_slug" do
+    @user = User.find_by_slug(params[:slug])
+    if @user
+        @project = Project.find_by_slug_and_user_id(params[:project_title_slug], @user.id)
+        if @project 
+          @project.title = params[:title]
+          @project.description = params[:description]
+          @project.download_link = params[:downloadLink]
+          @project.image_link0 = params[:imageLink0]
+          @project.image_link1 = params[:imageLink1]
+          @project.image_link2 = params[:imageLink2]
+          @project.image_link3 = params[:imageLink3]
+          @project.image_link4 = params[:imageLink4]
+          @project.save 
+          redirect "/projects/#{params[:slug]}/#{params[:project_title_slug]}"
+        else 
+          redirect "/projects"
+        end 
+    else
+      redirect "/projects"
+    end
   end
 
-  # DELETE: /projects/5/delete
-  delete "/projects/:id/delete" do
-    redirect "/projects"
+  delete  "/projects/:slug/:project_title_slug" do 
+    @user = User.find_by_slug(params[:slug])
+    if @user && @user == current_user 
+      @project = Project.find_by_slug_and_user_id(params[:project_title_slug], @user.id)
+      if @project
+        @project.delete
+      end
+      redirect "/users/#{@user.slug}"
+    else 
+      redirect "/projects"
+    end 
   end
 end

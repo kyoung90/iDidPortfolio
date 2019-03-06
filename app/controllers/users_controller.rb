@@ -84,6 +84,9 @@ class UsersController < ApplicationController
   delete  "/users/:slug" do 
     @user = User.find_by_slug(params[:slug])
     if @user && @user == current_user 
+      @user.projects.each do |project|
+        project.delete
+      end 
       @user.delete
       redirect "/signup"
     else 
