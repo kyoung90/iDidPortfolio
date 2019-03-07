@@ -1,15 +1,18 @@
 <div class="container">
-    <div class="card-deck">
-        <%@projects.each do |project|%>
-        <div class="card mb-3">
-            <a href="/projects/<%=project.user.slug%>/<%=project.slug%>"><img class="card-img-top" src="<%=project.image_link0%>" alt="Image goes here"></a>
-            <div class="card-body">
-                <h5 class="card-title"><%=project.title%></h5>
-                <p class="card-text"><%=project.description%></p>
-                <p class="card-text">by: <a href="/users/<%=project.user.slug%>"><%=project.user.username%></a></p>
-                <p class="card-text">views: <%=project.view_count%></p>
+    <div class="row">
+            <%@projects.each do |project|%>
+            <div class="col-lg-4 col-sm-6 mb-4">
+                <div class="card h-100">
+                    <a href="/projects/<%=project.user.slug%>/<%=project.slug%>"><img class="card-img-top" src="<%=project.image_link0%>" alt="Image goes here"></a>
+                    <div class="card-body">
+                        <h5 class="card-title"><%=project.title%></h5>
+                        <p class="card-text"><%=project.description%></p>
+                        <p class="card-text">by: <a href="/users/<%=project.user.slug%>"><%=project.user.username%></a></p>
+                        <p class="card-text">views: <%=project.view_count%></p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <%end%>
+            <%end%>
     </div>
 </div>
+

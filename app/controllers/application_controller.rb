@@ -12,7 +12,7 @@ class ApplicationController < Sinatra::Base
 
   get "/" do
     flash.now[:danger] = "I'm in danger."
-    erb :welcome
+    redirect "/projects"
   end
 
   helpers do

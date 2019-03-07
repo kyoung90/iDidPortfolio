@@ -6,7 +6,7 @@ class UsersController < ApplicationController
       erb :"users/login.html"
     else 
       flash.now[:message] = "Can't login if you already logged in."
-      redirect "/welcome"
+      redirect "/projects"
     end 
   end 
 
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       end
     else 
       flash.now[:message] = "Can't login if you already logged in."
-      redirect "/welcome"
+      redirect "/projects"
     end 
   end 
 
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
       erb :"/users/new.html"
     else 
       flash.now[:message] = "Can't sign up if you already signed up."
-      redirect "/welcome"
+      redirect "/projects"
     end 
       
   end

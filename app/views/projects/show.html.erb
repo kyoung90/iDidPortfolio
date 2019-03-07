@@ -1,22 +1,79 @@
+<!-- Page Content -->
 <div class="container">
-    <div class="card-deck">
-        <div class="card mb-3">
-            <a href="/projects/<%=@project.user.slug%>/<%=@project.slug%>"><img class="card-img-top" src="<%=@project.image_link0%>" alt="Image goes here"></a>
-            <div class="card-body">
-                <h5 class="card-title"><%=@project.title%></h5>
-                <p class="card-text"><%=@project.description%></p>
-                <p class="card-text">by: <a href="/users/<%=@project.user.slug%>"><%=@project.user.username%></a></p>
-                <p class="card-text">views: <%=@project.view_count%></p>
-            </div>
-        </div>
+
+  <!-- Portfolio Item Heading -->
+  <h1 class="my-4"><%=@project.title%></h1>
+
+  <!-- Portfolio Item Row -->
+  <div class="row">
+
+    <div class="col-md-8">
+      <img class="img-fluid" src="<%=@project.image_link0%>" alt="Image goes here">
     </div>
+
+    <div class="col-md-4">
+      <%if @project.description%>
+      <h3 class="my-3">Project Description</h3>
+      <p><%=@project.description%></p>
+      <%end%>
+      <p>by: <a href="/users/<%=@project.user.slug%>"><%=@project.user.username%></a></p>
+      <p>views: <%=@project.view_count%></p>
+
+      <% if current_user == @project.user%>
+        <a href="/projects/<%=@project.user.slug%>/<%=@project.slug%>/edit" class="btn btn-info">Edit</a>
+
+        <form action="/projects/<%=@project.user.slug%>/<%=@project.slug%>" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <input class="btn btn-danger" type="submit" name="Delete" value="Delete">
+        </form>
+        <%end%>
+
+    </div>
+
+  </div>
+  <!-- /.row -->
+
+  <!-- Related Projects Row -->
+  <%# <h3 class="my-4">More Images</h3> %>
+
+  <div class="row">
+
+    <%if @project.image_link1%>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="#">
+            <img class="img-fluid" src="<%=@project.image_link1%>" alt="">
+          </a>
+    </div>
+    <%end%>
+
+    <%if @project.image_link2%>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="#">
+            <img class="img-fluid" src="<%=@project.image_link2%>" alt="">
+          </a>
+    </div>
+    <%end%>
+
+    <%if @project.image_link3%>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="#">
+            <img class="img-fluid" src="<%=@project.image_link3%>" alt="">
+          </a>
+    </div>
+    <%end%>
+
+    <%if @project.image_link4%>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="#">
+            <img class="img-fluid" src="<%=@project.image_link4%>" alt="">
+          </a>
+    </div>
+    <%end%>
+
+  </div>
+  <!-- /.row -->
+
 </div>
+<!-- /.container -->
 
-<% if current_user == @project.user%>
-<a href="/projects/<%=@project.user.slug%>/<%=@project.slug%>/edit" class="btn btn-info">Edit</a>
 
-<form action="/projects/<%=@project.user.slug%>/<%=@project.slug%>" method="post">
-    <input type="hidden" name="_method" value="delete">
-    <input class="btn btn-danger" type="submit" name="Delete" value="Delete">
-</form>
-<%end%>
