@@ -11,6 +11,7 @@ class ProjectsController < ApplicationController
     if logged_in?
         erb :"/projects/new.html"
     else 
+        flash[:danger] = "Can't create a project unless you are logged in."
         erb :"/login"
     end 
   end
@@ -41,11 +42,14 @@ class ProjectsController < ApplicationController
         end
         project.view_count = 0
         project.save
+        flash[:success] = "Successfully created a project."
         redirect "/projects"
       else 
+        flash[:danger] = "Incorrect parameters."
         redirect "/projects/new"
       end 
     else 
+      flash[:danger] = "Can't create a project unless you are logged in."
       redirect "/login"
     end 
   end
@@ -59,8 +63,12 @@ class ProjectsController < ApplicationController
           @project.save
           erb :"/projects/show.html"
         else 
+          flash[:danger] = "That project was not found."
           redirect "/projects"
         end 
+    else
+      flash[:danger] = "A user with that username was not found."
+      redirect "/projects"
     end 
   end
 
@@ -71,9 +79,11 @@ class ProjectsController < ApplicationController
         if @project 
           erb :"/projects/edit.html"
         else 
+          flash[:danger] = "That project was not found."
           redirect "/users/#{@user.slug}"
         end 
     else
+      flash[:danger] = "A user with that username was not found."
       redirect "/projects"
     end
   end
@@ -92,11 +102,14 @@ class ProjectsController < ApplicationController
           @project.image_link3 = params[:imageLink3]
           @project.image_link4 = params[:imageLink4]
           @project.save 
+          flash[:success] = "Edited successfully."
           redirect "/projects/#{params[:slug]}/#{params[:project_title_slug]}"
         else 
+          flash[:danger] = "That project was not found."
           redirect "/projects"
         end 
     else
+      flash[:danger] = "A user with that username was not found."
       redirect "/projects"
     end
   end
@@ -107,9 +120,13 @@ class ProjectsController < ApplicationController
       @project = Project.find_by_slug_and_user_id(params[:project_title_slug], @user.id)
       if @project
         @project.delete
+        redirect "/users/#{@user.slug}"
+      else 
+        flash[:danger] = "Project was not found."
+        redirect "/users/#{@user.slug}"
       end
-      redirect "/users/#{@user.slug}"
     else 
+      flash[:danger] = "A user with that username was not found or you do not have permissions to delete that user."
       redirect "/projects"
     end 
   end

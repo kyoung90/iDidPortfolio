@@ -11,7 +11,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    flash.now[:danger] = "I'm in danger."
+    flash[:message] = "I'm in danger."
     redirect "/projects"
   end
 
@@ -21,7 +21,9 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      User.find(session[:user_id])
+      if session[:user_id]
+        User.find(session[:user_id])
+      end 
     end
   end
 
