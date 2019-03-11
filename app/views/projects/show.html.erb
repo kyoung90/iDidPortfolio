@@ -19,12 +19,6 @@
       <p>by: <a href="/users/<%=@project.user.slug%>"><%=@project.user.username%></a></p>
       <p>views: <%=@project.view_count%></p>
 
-      <%# <%if @user.likes.select{|project| project} %> %>
-
-      <%# <%else%> %>
-
-      <%# <%end%>  %>
-
       <% if current_user == @project.user%>
         <a href="/projects/<%=@project.user.slug%>/<%=@project.slug%>/edit" class="btn btn-info">Edit</a>
 
@@ -33,6 +27,12 @@
             <input class="btn btn-danger" type="submit" name="Delete" value="Delete">
         </form>
         <%end%>
+
+        <% if current_user %>
+          <form action="/projects/<%=@project.user.slug%>/<%=@project.slug%>" method="post">
+            <input class="btn btn-danger" type="submit" name="Delete" value="Delete">
+          </form>
+        <%%>
 
     </div>
 

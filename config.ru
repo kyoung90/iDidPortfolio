@@ -7,6 +7,5 @@ end
 use Rack::MethodOverride
 
 run ApplicationController
-use LikesController
 use ProjectsController
 use UsersController
