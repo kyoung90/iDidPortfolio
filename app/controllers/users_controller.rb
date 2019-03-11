@@ -29,7 +29,6 @@ class UsersController < ApplicationController
 
   get "/signup" do 
     if !session.key?(:user_id)
-      flash[:success] = "Successfully logged in."
       erb :"/users/new.html"
     else 
       flash[:danger] = "Can't sign up if you already signed up."
