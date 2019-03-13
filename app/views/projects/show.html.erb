@@ -18,6 +18,9 @@
       <%end%>
       <p>by: <a href="/users/<%=@project.user.slug%>"><%=@project.user.username%></a></p>
       <p>views: <%=@project.view_count%></p>
+      <p>likes: <%=@project.likes.count%></p>
+      <p>created at: <%=@project.created_at.strftime("%B, %e %Y")%></p>
+
 
       <% if current_user == @project.user%>
         <a href="/projects/<%=@project.user.slug%>/<%=@project.slug%>/edit" class="btn btn-info">Edit</a>
@@ -26,13 +29,17 @@
             <input type="hidden" name="_method" value="delete">
             <input class="btn btn-danger" type="submit" name="Delete" value="Delete">
         </form>
-        <%end%>
+      <%end%>
 
-        <% if current_user %>
-          <form action="/projects/<%=@project.user.slug%>/<%=@project.slug%>" method="post">
-            <input class="btn btn-danger" type="submit" name="Delete" value="Delete">
+      <% if current_user && @project.likes.detect{|like| like.user_id = current_user.id}%>
+          <form action="/projects/<%=@project.slug%>/unlike" method="post">
+            <input class="btn btn-info" type="submit" name="Unlike" value="Unlike">
           </form>
-        <%%>
+      <% elsif current_user%>
+          <form action="/projects/<%=@project.slug%>/like" method="post">
+            <input class="btn btn-info" type="submit" name="Like" value="Like">
+          </form>     
+      <%end%>
 
     </div>
 

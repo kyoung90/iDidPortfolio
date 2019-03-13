@@ -5,6 +5,8 @@
             <div class="card-body">
                 <h5 class="card-title"><%=@user.username.capitalize%></h5>
                 <p class="card-text"><%=@user.email%></p>
+                <p class="card-text"><%=@user.short_bio%></p>
+                <p class="card-text">member since: <%=@user.created_at.strftime("%B, %e %Y")%></p>
             </div>
             <%if @user.profile_pic_link%>
                 <p><img class="card-img-top" src="<%=@user.profile_pic_link%>"></img></p>
@@ -14,7 +16,6 @@
         </div>
     </div>
 
-<p><%=@user.short_bio%></p>
 
 <h1 class="text-center display-2">Projects</h1>
 <div class="container">

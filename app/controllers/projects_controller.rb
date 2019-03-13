@@ -54,6 +54,44 @@ class ProjectsController < ApplicationController
     end 
   end
 
+  post "/projects/:project_title_slug/like" do
+    if current_user
+      @project = Project.find_by_slug_and_user_id(params[:project_title_slug], current_user.id)
+      if @project 
+        Like.create(user_id: current_user.id, project_id: @project.id)
+        redirect "/projects/#{@project.slug}"
+      else   
+        flash[:danger] = "That project was not found."
+        redirect "/projects"
+      end 
+    else 
+      flash[:danger] = "Must be logged in to like a project."
+      redirect "/projects"
+    end 
+  end 
+
+  post "/projects/:project_title_slug/unlike" do
+    if current_user
+      @project = Project.find_by_slug_and_user_id(params[:project_title_slug], current_user.id)
+      if @project 
+        like = Like.find_by(user_id: current_user.id, project_id: @project.id)
+        if like 
+          like.delete
+          redirect "/projects/#{@project.slug}"
+        else 
+          flash[:danger] = "You can't unlike something you haven't liked."
+          redirect "/projects/#{@project.slug}"
+        end 
+      else   
+        flash[:danger] = "That project was not found."
+        redirect "/projects"
+      end 
+    else 
+      flash[:danger] = "Must be logged in to unlike a project."
+      redirect "/projects"
+    end 
+  end 
+
   get "/projects/:slug/:project_title_slug" do
     user = User.find_by_slug(params[:slug])
     if user

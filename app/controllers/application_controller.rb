@@ -11,7 +11,6 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    flash[:message] = "I'm in danger."
     redirect "/projects"
   end
 
