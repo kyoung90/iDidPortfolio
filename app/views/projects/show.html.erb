@@ -21,24 +21,31 @@
       <p>likes: <%=@project.likes.count%></p>
       <p>created at: <%=@project.created_at.strftime("%B, %e %Y")%></p>
 
-
-      <% if current_user == @project.user%>
-        <a href="/projects/<%=@project.user.slug%>/<%=@project.slug%>/edit" class="btn btn-info">Edit</a>
-
-        <form action="/projects/<%=@project.user.slug%>/<%=@project.slug%>" method="post">
-            <input type="hidden" name="_method" value="delete">
-            <button class="btn btn-danger" type="submit"><i class="fas fa-trash"></i></button>
-        </form>
-      <%end%>
-
       <% if current_user && @project.likes.detect{|like| like.user_id = current_user.id}%>
           <form action="/projects/<%=@project.slug%>/unlike" method="post">
-            <input class="btn btn-info" type="submit" name="Unlike" value="Unlike">
+            <button class="btn btn-info" type="submit">Unlike <i class="fas fa-thumbs-down"></i></button>
           </form>
       <% elsif current_user%>
           <form action="/projects/<%=@project.slug%>/like" method="post">
-            <input class="btn btn-info" type="submit" name="Like" value="Like">
+            <button class="btn btn-info" type="submit">Like <i class="fas fa-thumbs-up"></i></button>
           </form>     
+      <%end%>
+
+      <% if current_user == @project.user%>
+      <br>
+      <br>
+      <div class="row">
+          <div class="col-4 ">
+            <a href="/projects/<%=@project.user.slug%>/<%=@project.slug%>/edit" class="btn btn-info">Edit</a>
+          </div>
+
+          <div class="ml-auto col-4">
+            <form action="/projects/<%=@project.user.slug%>/<%=@project.slug%>" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <button class="btn btn-danger btn-small" type="submit"><i class="fas fa-trash"></i></button>
+            </form>
+          </div>
+      </div>
       <%end%>
 
     </div>

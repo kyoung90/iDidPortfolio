@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   post "/signup" do  
     if !session.key?(:user_id)
       if params[:username] != "" && params[:password] != "" && params[:email] != ""
-        if User.find_by(username: params[:username]) && User.find_by(email: params[:email])
+        if User.find_by(username: params[:username]) || User.find_by(email: params[:email])
           flash[:danger] = "A user with that email or username already exists."
         else 
           user = User.create(username: params[:username], email: params[:email], password: params[:password])
