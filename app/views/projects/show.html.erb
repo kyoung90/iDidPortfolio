@@ -16,6 +16,11 @@
       <h3 class="my-3">Project Description</h3>
       <p><%=@project.description%></p>
       <%end%>
+
+      <%if @project.download_link%>
+      <a href="<%=@project.download_link%>">Download Link</a>
+      <%end%>
+
       <p>by: <a href="/users/<%=@project.user.slug%>"><%=@project.user.username%></a></p>
       <p>views: <%=@project.view_count%></p>
       <p>likes: <%=@project.likes.count%></p>
