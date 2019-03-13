@@ -59,7 +59,7 @@ class ProjectsController < ApplicationController
       @project = Project.find_by_slug_and_user_id(params[:project_title_slug], current_user.id)
       if @project 
         Like.create(user_id: current_user.id, project_id: @project.id)
-        redirect "/projects/#{@project.slug}"
+        redirect "/projects/#{@project.user.slug}/#{@project.slug}"
       else   
         flash[:danger] = "That project was not found."
         redirect "/projects"
@@ -77,10 +77,10 @@ class ProjectsController < ApplicationController
         like = Like.find_by(user_id: current_user.id, project_id: @project.id)
         if like 
           like.delete
-          redirect "/projects/#{@project.slug}"
+          redirect "/projects/#{@project.user.slug}/#{@project.slug}"
         else 
           flash[:danger] = "You can't unlike something you haven't liked."
-          redirect "/projects/#{@project.slug}"
+          redirect "/projects/#{@project.user.slug}/#{@project.slug}"
         end 
       else   
         flash[:danger] = "That project was not found."
