@@ -13,8 +13,28 @@
             <%else%>
                 <p><img class="card-img-top"  src="http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"></img></p>
             <%end%>
+            <% if current_user == @user%>
+            <br>
+            <div class="row justify-content-around">
+                <div class="col-2 ">
+                    <a href="/users/<%=@user.slug%>/edit" class="btn btn-info">Edit</a>
+                </div>
+
+                <div class="col-2">
+                    <form action="/users/<%=@user.slug%>" method="post">
+                        <input type="hidden" name="_method" value="delete">
+                        <button class="btn btn-danger" type="submit"><i class="fas fa-trash"></i></button>
+                    </form>
+                </div>
+            </div>
+            <br>
+            <%end%>
         </div>
     </div>
+
+
+
+
 
 
 <h1 class="text-center display-2">Projects</h1>
@@ -39,11 +59,3 @@
 
 
 
-<% if current_user == @user%>
-<a href="/users/<%=@user.slug%>/edit" class="btn btn-info">Edit</a>
-
-<form action="/users/<%=@user.slug%>" method="post">
-    <input type="hidden" name="_method" value="delete">
-    <button class="btn btn-danger" type="submit"><i class="fas fa-trash"></i></button>
-</form>
-<%end%>
