@@ -56,7 +56,7 @@ class ProjectsController < ApplicationController
 
   post "/projects/:project_title_slug/like" do
     if current_user
-      @project = Project.find_by_slug_and_user_id(params[:project_title_slug], current_user.id)
+      @project = Project.find_by_slug(params[:project_title_slug])
       if @project 
         Like.create(user_id: current_user.id, project_id: @project.id)
         redirect "/projects/#{@project.user.slug}/#{@project.slug}"
@@ -72,7 +72,7 @@ class ProjectsController < ApplicationController
 
   post "/projects/:project_title_slug/unlike" do
     if current_user
-      @project = Project.find_by_slug_and_user_id(params[:project_title_slug], current_user.id)
+      @project = Project.find_by_slug(params[:project_title_slug])
       if @project 
         like = Like.find_by(user_id: current_user.id, project_id: @project.id)
         if like 
