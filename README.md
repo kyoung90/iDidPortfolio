@@ -27,6 +27,19 @@ Optional:
 * See a project's amount of views
 * See a project's amount of likes
 
+## Future Work
+
+* Add filters by categories, names, and ingredients
+* Add landing page
+* Add home page
+* Make contact page send email
+* Add cloud services like aws to store user submitted photos of their recipes
+* Add user signup /login
+* Add likes, watched, and created
+* Add update and destroy recipes
+* Add categories components
+* Update form to make it an easier experience to create a recipe (update some text fields to dropdowns)
+
 ## Contributing
 
 Please feel free to contribute :)
